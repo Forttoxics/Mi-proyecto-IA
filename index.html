@@ -31,15 +31,18 @@
     <h2>⚙️ Ajustes</h2>
     <div class="fila"><label>✨ Personalidad personalizada</label></div>
     <textarea id="taCustom" rows="3" placeholder="Ej: Eres un gato hacker que resuelve dudas…"></textarea>
-    <div class="fila"><label>Proveedor de IA</label></div>
-    <select id="inProv"></select>
-    <div id="provNota"></div>
-    <input id="inUrl" placeholder="URL de la API">
-    <input id="inKey" type="password" placeholder="API key (se guarda solo en TU navegador)">
-    <input id="inModelo" placeholder="Modelo">
+    <div class="fila"><label>Proveedor de IA — toca una tarjeta</label></div>
+    <div id="provGrid"></div>
+    <div id="provInfo"></div>
+    <input id="inKey" type="password" placeholder="API key (se guarda solo en TU navegador)" style="display:none">
+    <details id="avanzado">
+      <summary>🔧 Avanzado: URL y modelo</summary>
+      <input id="inUrl" placeholder="URL de la API">
+      <input id="inModelo" placeholder="Modelo">
+    </details>
     <div class="fila"><label>Presupuesto de tokens</label><input id="inPresu" type="number" style="width:90px"></div>
     <div class="fila"><label>Máx. tokens por respuesta</label><input id="inMax" type="number" style="width:90px"></div>
-    <p class="aviso">⚠️ La clave nunca sale de tu navegador. El nivel de censura real depende del proveedor y modelo elegidos.</p>
+    <p class="aviso">⚠️ La clave nunca sale de tu navegador. El contenido adulto es bajo tu responsabilidad y según los términos de cada proveedor.</p>
     <div style="display:flex; gap:8px; justify-content:flex-end">
       <button class="chip" id="mCancelar">Cancelar</button>
       <button class="chip" id="mGuardar" style="background:var(--accent); border-color:var(--accent); color:#fff">Guardar</button>
