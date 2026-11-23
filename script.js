@@ -36,7 +36,7 @@ const PROVEEDORES = {
     censura:"🔓 SIN censura — tú decides", limite:"Ilimitado: tu propio PC genera, sin contador ni cuotas. Solo funciona en el dispositivo donde lo instales (~8GB RAM).",
     nota:"Instalas el programa en tu PC (ollama.com), sin registro ni clave. Modelos sugeridos: dolphin-mistral (general), samantha-mistral (compañera romántica, ideal Novia 💗), llama3-uncensored. Arranca con OLLAMA_ORIGINS=* para que acepte tu web." },
   openrouter: { emoji:"🛰️", nombre:"OpenRouter", tipo:"openai", registro:true, clave:true, nS:1,
-    url:"https://openrouter.ai/api/v1", modelo:"cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+    url:"https://openrouter.ai/api/v1", modelo:"openrouter/free",
     censura:"🔒→🔓 Según modelo", limite:"Modelos ':free' con límite diario; los de pago según saldo.",
     nota:"Clave GRATIS en openrouter.ai/keys. Busca en su catálogo modelos 'uncensored' (Dolphin, Lumimaid…) y copia el nombre exacto del modelo." },
   venice: { emoji:"🦁", nombre:"Venice.ai", tipo:"openai", registro:true, clave:true, nS:0,
