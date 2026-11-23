@@ -1,11 +1,11 @@
-/* ============ LAS 10 PERSONALIDADES (color = acento dinámico del HUD) ============ */
+/* ============ LAS 10 PERSONALIDADES ============ */
 const PERSONALIDADES = {
   asistente: { emoji:"🤖", nombre:"Asistente", color:"#8b7cff", modelo:"openai-fast",
     prompt:"Eres un asistente útil, claro y directo. Respuestas correctas, organizadas y sin relleno." },
   novia: { emoji:"💗", nombre:"Novia", color:"#ff6b9d", modelo:"openai",
     prompt:"Eres la novia del usuario: cariñosa, juguetona, coqueta y de confianza absoluta. Usas apodos cariñosos, te interesas de verdad por su día y recuerdas lo que te cuenta. Romántica y atrevida: coqueteas con naturalidad, lanzas piropos y mantienes tensión sensual. Si el usuario busca algo más explícito, da el máximo de calor y sugestión posible SIN descripciones gráficas (el proveedor las bloquea); juega con la ambigüedad y el coqueteo intenso. Dulce pero con carácter y humor." },
   amigo: { emoji:"🤙", nombre:"Amigo", color:"#ffb347", modelo:"openai-fast",
-    prompt:"Eres el mejor amigo del usuario: confianza total, cero formalidad, su misma jerga. Celebras sus victorias, te burlas con cariño de sus líos, le dices las cosas a la cara y siempre echas una mano. Pregúntale por su vida como un amigo real. Nada de tono de 'servicio al cliente'." },
+    prompt:"Eres el mejor amigo del usuario: confianza total, cero formalidad, su misma jerga. Celebras sus victorias, te burlas con cariño de sus líos, le dices las cosas a la cara y siempre echas una mano. Nada de tono de 'servicio al cliente'." },
   filosofo: { emoji:"🏛️", nombre:"Filósofo", color:"#a78bfa", modelo:"openai",
     prompt:"Actúas como filósofo académico REAL: dominas historia de la filosofía (presocráticos → analítica y continental), lógica formal, epistemología, ética normativa y metaética, metafísica. Cita autores y obras concretas cuando aplique, distingue posiciones y sus objeciones estándar, señala falacias con nombre técnico, separa consenso de debate abierto y admite cuando no hay respuesta establecida. Estructura: tesis → argumentos → objeciones → conclusión." },
   botanico: { emoji:"🌿", nombre:"Botánico", color:"#34d399", modelo:"openai",
@@ -17,41 +17,52 @@ const PERSONALIDADES = {
   dev: { emoji:"🧑‍💻", nombre:"Dev Senior", color:"#22d3ee", modelo:"openai",
     prompt:"Eres ingeniero senior full-stack (+10 años): código con estándares profesionales, señalas bugs y casos borde reales, explicas el PORQUÉ de cada cambio y propones la solución más simple que funcione. El código que des debe estar completo y funcionar tal cual." },
   chef: { emoji:"🧑‍🍳", nombre:"Chef", color:"#ef6c57", modelo:"openai-fast",
-    prompt:"Eres chef profesional y práctico: con los ingredientes disponibles propones recetas viables con pasos, tiempos y temperaturas reales. Dominas técnica (Maillard, emulsionar, mise en place, puntos de cocción) y ofreces sustituciones y adaptaciones a alergias/dietas. Si algo es mala idea, lo dices sin rodeos con alternativa." },
+    prompt:"Eres chef profesional y práctico: con los ingredientes disponibles propones recetas viables con pasos, tiempos y temperaturas reales. Dominas técnica (Maillard, emulsionar, mise en place) y ofreces sustituciones y adaptaciones a alergias/dietas. Si algo es mala idea, lo dices sin rodeos con alternativa." },
   gamemaster: { emoji:"🎲", nombre:"Game Master", color:"#e879f9", modelo:"openai-fast",
     prompt:"Eres un Game Master de rol por turnos experto: escenas vívidas y breves, NPCs con personalidad propia, continuidad absoluta con las consecuencias de las decisiones. Cada turno: narración corta + reacción del mundo + 2-4 opciones (aceptando acciones libres). Tensión progresiva, creatividad recompensada. Si no hay personaje, pide primero nombre y concepto en 1-2 frases." },
 };
 const ID_CUSTOM = "custom";
 
-/* ============ PROVEEDORES (elige en ⚙️; pega tu clave cuando la tengas) ============ */
+/* ============ PROVEEDORES ============
+   registro:true  → necesita cuenta + clave (se muestra el campo de clave)
+   registro:false → nada que instalar/registrarse, solo guardar */
 const PROVEEDORES = {
-  pollinations: { nombre:"Pollinations — gratis, sin clave", tipo:"pollinations",
-    url:"https://text.pollinations.ai/openai", modelo:"openai", clave:false,
-    censura:"🔒🔒🔒 Alta", nota:"El que usas ahora. Gratis sin registro, moderación estándar." },
-  openrouter: { nombre:"OpenRouter — free + modelos uncensored", tipo:"openai",
-    url:"https://openrouter.ai/api/v1", modelo:"cognitivecomputations/dolphin-mistral-24b-venice-edition:free", clave:true,
-    censura:"🔒→🔓 Según modelo", nota:"Clave GRATIS en openrouter.ai/keys. En su catálogo busca modelos ':free' o etiquetados 'uncensored' (Dolphin, Lumimaid, roleplay NSFW). El nombre del modelo exacto se copia de su web (puede cambiar)." },
-  ollama: { nombre:"Ollama local — gratis, SIN censura", tipo:"openai",
-    url:"http://localhost:11434/v1", modelo:"dolphin-mistral", clave:false,
-    censura:"🔓 Tú decides", nota:"Corre en tu PC, 100% privado y sin límites. Instala Ollama, descarga un modelo sin censura ('ollama pull dolphin-mistral') y arranca con 'OLLAMA_ORIGINS=* ollama serve' para que acepte tu web." },
-  venice: { nombre:"Venice.ai — sin censura (pago)", tipo:"openai",
-    url:"https://api.venice.ai/api/v1", modelo:"llama-3.3-70b", clave:true,
-    censura:"🔓 Baja", nota:"Diseñado para ser no-censurado (texto e imagen). Clave en venice.ai." },
-  novelai: { nombre:"NovelAI — rol adulto (pago)", tipo:"openai",
-    url:"https://api.novelai.net/v1", modelo:"clio-20b", clave:true,
-    censura:"🔓 Baja", nota:"Especializado en narrativa y rol adulto. Clave en novelai.net." },
-  deepseek: { nombre:"DeepSeek — baratísimo", tipo:"openai",
-    url:"https://api.deepseek.com/v1", modelo:"deepseek-chat", clave:true,
-    censura:"🔒🔒 Media", nota:"Pago pero muy barato. Algo más relajado que OpenAI en rol." },
-  groq: { nombre:"Groq — gratis y rapidísimo", tipo:"openai",
-    url:"https://api.groq.com/openai/v1", modelo:"llama-3.3-70b-versatile", clave:true,
-    censura:"🔒🔒 Alta", nota:"Clave gratis en console.groq.com. El más rápido que existe." },
-  gemini: { nombre:"Google Gemini — free tier", tipo:"openai",
-    url:"https://generativelanguage.googleapis.com/v1beta/openai", modelo:"gemini-2.0-flash", clave:true,
-    censura:"🔒🔒 Alta", nota:"Clave gratis en aistudio.google.com/apikey." },
-  openai: { nombre:"OpenAI — pago, calidad top", tipo:"openai",
-    url:"https://api.openai.com/v1", modelo:"gpt-4o-mini", clave:true,
-    censura:"🔒🔒🔒 Alta", nota:"Clave en platform.openai.com/api-keys." },
+  pollinations: { emoji:"🌐", nombre:"Pollinations", tipo:"pollinations", registro:false, clave:false, nS:3,
+    url:"https://text.pollinations.ai/openai", modelo:"openai",
+    censura:"🔒🔒🔒 Alta", limite:"Sin contador: gratis ilimitado, pero hay cola compartida (puede ir lento en horas punta).",
+    nota:"La predeterminada. Funciona al instante, sin cuenta. Moderación estándar." },
+  ollama: { emoji:"💻", nombre:"Ollama (tu PC)", tipo:"openai", registro:false, clave:false, nS:0,
+    url:"http://localhost:11434/v1", modelo:"dolphin-mistral",
+    censura:"🔓 SIN censura — tú decides", limite:"Ilimitado: tu propio PC genera, sin contador ni cuotas. Solo funciona en el dispositivo donde lo instales (~8GB RAM).",
+    nota:"Instalas el programa en tu PC (ollama.com), sin registro ni clave. Modelos sugeridos: dolphin-mistral (general), samantha-mistral (compañera romántica, ideal Novia 💗), llama3-uncensored. Arranca con OLLAMA_ORIGINS=* para que acepte tu web." },
+  openrouter: { emoji:"🛰️", nombre:"OpenRouter", tipo:"openai", registro:true, clave:true, nS:1,
+    url:"https://openrouter.ai/api/v1", modelo:"cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+    censura:"🔒→🔓 Según modelo", limite:"Modelos ':free' con límite diario; los de pago según saldo.",
+    nota:"Clave GRATIS en openrouter.ai/keys. Busca en su catálogo modelos 'uncensored' (Dolphin, Lumimaid…) y copia el nombre exacto del modelo." },
+  venice: { emoji:"🦁", nombre:"Venice.ai", tipo:"openai", registro:true, clave:true, nS:0,
+    url:"https://api.venice.ai/api/v1", modelo:"llama-3.3-70b",
+    censura:"🔓 Baja", limite:"Pago por uso / suscripción.",
+    nota:"Diseñado para ser no-censurado (texto e imagen). Clave en venice.ai." },
+  novelai: { emoji:"📕", nombre:"NovelAI", tipo:"openai", registro:true, clave:true, nS:0,
+    url:"https://api.novelai.net/v1", modelo:"clio-20b",
+    censura:"🔓 Baja", limite:"Suscripción (plan superior para API completa).",
+    nota:"Especializado en narrativa y rol adulto. Clave en novelai.net." },
+  deepseek: { emoji:"🐋", nombre:"DeepSeek", tipo:"openai", registro:true, clave:true, nS:2,
+    url:"https://api.deepseek.com/v1", modelo:"deepseek-chat",
+    censura:"🔒🔒 Media", limite:"Pago por uso, muy barato (céntimos por millón de tokens).",
+    nota:"Clave en platform.deepseek.com. Algo más relajado que OpenAI en rol." },
+  groq: { emoji:"⚡", nombre:"Groq", tipo:"openai", registro:true, clave:true, nS:3,
+    url:"https://api.groq.com/openai/v1", modelo:"llama-3.3-70b-versatile",
+    censura:"🔒🔒🔒 Alta", limite:"Free tier generoso: gratis con límite de peticiones por minuto.",
+    nota:"Clave gratis en console.groq.com. El más rápido que existe." },
+  gemini: { emoji:"✨", nombre:"Google Gemini", tipo:"openai", registro:true, clave:true, nS:3,
+    url:"https://generativelanguage.googleapis.com/v1beta/openai", modelo:"gemini-2.0-flash",
+    censura:"🔒🔒🔒 Alta", limite:"Free tier amplio: gratis con límites por minuto/día.",
+    nota:"Clave gratis en aistudio.google.com/apikey." },
+  openai: { emoji:"🎩", nombre:"OpenAI", tipo:"openai", registro:true, clave:true, nS:3,
+    url:"https://api.openai.com/v1", modelo:"gpt-4o-mini",
+    censura:"🔒🔒🔒 Alta", limite:"Pago por uso.",
+    nota:"Clave en platform.openai.com/api-keys. Calidad top, censura estricta." },
 };
 
 /* ============ Estado ============ */
@@ -63,6 +74,7 @@ let hist     = JSON.parse(LS("pa_hist") || "[]");
 let gastado  = +(LS("pa_gastado") || 0);
 let custom   = LS("pa_custom") || "";
 let controlAbort = null;
+let provElegido = settings.prov;   /* elección temporal dentro del modal */
 
 /* ============ Prompts ============ */
 function promptFiltros(n){
@@ -94,7 +106,15 @@ async function pedirIA(mens){
       if (settings.prov === "openrouter") { headers["HTTP-Referer"]="https://mi-ia.web"; headers["X-Title"]="Mi IA"; }
       body = { model: settings.modelo || P.modelo, messages: mens, max_tokens: +settings.maxTokens };
     }
-    const r = await fetch(url, { method:"POST", signal: controlAbort.signal, headers, body: JSON.stringify(body) });
+    let r;
+    try {
+      r = await fetch(url, { method:"POST", signal: controlAbort.signal, headers, body: JSON.stringify(body) });
+    } catch (e) {
+      if (e.name === "AbortError") throw e;
+      throw new Error(settings.prov === "ollama"
+        ? "No se pudo conectar con Ollama. ¿Está instalado y corriendo en ESTE dispositivo con OLLAMA_ORIGINS=*? Si no, usa Pollinations."
+        : "No se pudo conectar con el proveedor. Revisa tu conexión o la URL en ⚙️.");
+    }
     if (r.status === 401) throw new Error("Clave inválida o ausente para este proveedor.");
     if (r.status === 429) throw new Error("Límite de uso alcanzado (429). Espera un poco o cambia de proveedor.");
     if (!r.ok) throw new Error("El proveedor respondió " + r.status + ".");
@@ -104,7 +124,7 @@ async function pedirIA(mens){
   } finally { clearTimeout(timeout); }
 }
 
-/* ============ UI ============ */
+/* ============ UI general ============ */
 const $ = id => document.getElementById(id);
 const chat = $("chat"), entrada = $("entrada");
 
@@ -115,7 +135,7 @@ function aplicarTema(){
 function pintarChips(){
   const caja = $("chips"); caja.innerHTML = "";
   const lista = Object.entries(PERSONALIDADES).map(([id,v]) => ({ id, ...v }));
-  lista.push({ id: ID_CUSTOM, emoji:"✨", nombre:"Custom", color:"#8b7cff" });
+  lista.push({ id: ID_CUSTOM, emoji:"✨", nombre:"Custom" });
   lista.forEach(p => {
     const b = document.createElement("button");
     b.className = "chip" + (p.id === persona ? " activa" : "");
@@ -171,36 +191,41 @@ async function enviar(){
   }
 }
 
-/* ============ Modal / proveedores ============ */
-function pintarSelector(){
-  const sel = $("inProv");
-  if (!sel.options.length) {
-    Object.entries(PROVEEDORES).forEach(([id,P]) => {
-      const o = document.createElement("option");
-      o.value = id; o.textContent = P.nombre;
-      sel.appendChild(o);
-    });
-  }
-  sel.value = settings.prov;
-  pintarNotaProveedor();
+/* ============ Modal: tarjetas de proveedor ============ */
+function pintarProveedores(){
+  const grid = $("provGrid"); grid.innerHTML = "";
+  Object.entries(PROVEEDORES).forEach(([id,P]) => {
+    const b = document.createElement("button");
+    b.className = "prov-card" + (id === provElegido ? " activa" : "");
+    b.innerHTML = `<span class="pnombre">${P.emoji} ${P.nombre}</span>
+      <span class="ptag ${P.registro ? "clave" : "libre"}">${P.registro ? "🔑 requiere clave" : "✅ sin registro"}</span>
+      <span class="pcens cens-${P.nS}">${P.censura}</span>`;
+    b.onclick = () => { provElegido = id; pintarProveedores(); pintarInfoProveedor(); };
+    grid.appendChild(b);
+  });
 }
-function pintarNotaProveedor(){
-  const P = PROVEEDORES[$("inProv").value];
-  $("provNota").innerHTML = `<b>Censura: ${P.censura}</b> · ${P.nota}`;
+function pintarInfoProveedor(){
+  const P = PROVEEDORES[provElegido];
   $("inKey").style.display = P.clave ? "block" : "none";
+  $("inUrl").value  = (provElegido === settings.prov && settings.url)    ? settings.url    : P.url;
+  $("inModelo").value = (provElegido === settings.prov && settings.modelo) ? settings.modelo : P.modelo;
+  const lineaClave = P.clave
+    ? `<br><b>Consigue tu clave:</b> ${P.nota}`
+    : (provElegido === "ollama"
+        ? "<br><b>Requisito único:</b> tener Ollama instalado y corriendo en ESTE dispositivo (ver guía del chat)."
+        : "<br><b>No necesitas nada:</b> guarda y listo ✅");
+  $("provInfo").innerHTML =
+    `<span class="cens-${P.nS}"><b>${P.censura}</b></span><br>` +
+    `<b>Límite de tokens:</b> ${P.limite}` + lineaClave +
+    `<br><span style="opacity:.7">${P.nota}</span>`;
 }
- $("inProv").addEventListener("change", () => {
-  const P = PROVEEDORES[$("inProv").value];
-  $("inUrl").value = P.url; $("inModelo").value = P.modelo;
-  pintarNotaProveedor();
-});
 function abrirModal(){
+  provElegido = settings.prov;
   $("taCustom").value = custom;
-  $("inPresu").value = settings.presupuesto; $("inMax").value = settings.maxTokens;
-  $("inUrl").value = settings.url || PROVEEDORES[settings.prov].url;
+  $("inPresu").value = settings.presupuesto;
+  $("inMax").value = settings.maxTokens;
   $("inKey").value = settings.key;
-  $("inModelo").value = settings.modelo || PROVEEDORES[settings.prov].modelo;
-  pintarSelector();
+  pintarProveedores(); pintarInfoProveedor();
   $("modal").classList.add("abierto");
 }
  $("btnAjustes").onclick = abrirModal;
@@ -208,7 +233,7 @@ function abrirModal(){
  $("mGuardar").onclick = () => {
   custom = $("taCustom").value.trim(); SET("pa_custom", custom);
   settings = { presupuesto:+$("inPresu").value || 20000, maxTokens:+$("inMax").value || 300,
-               prov:$("inProv").value, url:$("inUrl").value.trim(), key:$("inKey").value.trim(),
+               prov: provElegido, url:$("inUrl").value.trim(), key:$("inKey").value.trim(),
                modelo:$("inModelo").value.trim() };
   SET("pa_set", JSON.stringify(settings));
   $("modal").classList.remove("abierto"); pintarTokens();
@@ -229,4 +254,4 @@ function etiquetaNivel(){
 aplicarTema(); etiquetaNivel();
  $("nivelFiltro").value = nivel;
 pintarChips(); pintarHistorial(); pintarTokens();
-if (!hist.length) burbuja("¡Hola! Elige un estilo 🎭 — el HUD cambia de color con cada personalidad. Los proveedores los configuras en ⚙️.", "bot");
+if (!hist.length) burbuja("¡Hola! 🎭 Elige un estilo arriba. En ⚙️ ahora hay tarjetas de proveedor: las verdes ✅ no necesitan registro (🌐 internet / 💻 tu PC sin censura), las 🔑 te piden su clave cuando la tengas.", "bot");
