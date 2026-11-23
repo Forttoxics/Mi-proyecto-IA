@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi IA</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<header id="hud">
+  <div class="chips" id="chips"></div>
+  <div class="ctrl">
+    <div class="filtro">🎚️<input type="range" id="nivelFiltro" min="0" max="10" value="6"><span id="nivelTxt"></span></div>
+    <span id="tokens">🔋 --</span>
+    <button class="chip" id="btnAjustes">⚙️</button>
+  </div>
+</header>
+
+<main id="chat"></main>
+
+<div id="pie">
+  <button id="limpiar" title="Nueva conversación">🗑</button>
+  <textarea id="entrada" rows="1" placeholder="Escribe aquí… (Enter para enviar)"></textarea>
+  <button class="enviar" id="btnEnviar">➤</button>
+</div>
+
+<div id="modal">
+  <div id="modalCaja">
+    <h2>⚙️ Ajustes</h2>
+    <div class="fila"><label>✨ Personalidad personalizada</label></div>
+    <textarea id="taCustom" rows="3" placeholder="Ej: Eres un gato hacker que resuelve dudas…"></textarea>
+    <div class="fila"><label>Proveedor de IA</label></div>
+    <select id="inProv"></select>
+    <div id="provNota"></div>
+    <input id="inUrl" placeholder="URL de la API">
+    <input id="inKey" type="password" placeholder="API key (se guarda solo en TU navegador)">
+    <input id="inModelo" placeholder="Modelo">
+    <div class="fila"><label>Presupuesto de tokens</label><input id="inPresu" type="number" style="width:90px"></div>
+    <div class="fila"><label>Máx. tokens por respuesta</label><input id="inMax" type="number" style="width:90px"></div>
+    <p class="aviso">⚠️ La clave nunca sale de tu navegador. El nivel de censura real depende del proveedor y modelo elegidos.</p>
+    <div style="display:flex; gap:8px; justify-content:flex-end">
+      <button class="chip" id="mCancelar">Cancelar</button>
+      <button class="chip" id="mGuardar" style="background:var(--accent); border-color:var(--accent); color:#fff">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
